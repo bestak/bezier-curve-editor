@@ -7,6 +7,8 @@ with Bézier curves intuitive and efficient.
 
 It was created as an assignment for the course [Curve and Surface Design](https://dccg.upc.edu/courses-dcs/) at [FIB UPC](https://www.fib.upc.edu/es) during the Spring semester of 2024/2025.
 
+<img src="screenshots/editor.png" width="1000">
+
 ## Modes
 There are several modes in this editor.
 
