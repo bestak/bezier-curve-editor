@@ -1,0 +1,122 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    display: flex;
+    height: 100vh;
+}
+
+.container {
+    display: flex;
+    width: 100%;
+}
+
+.canvas {
+    width: 100%;
+    height: 100%;
+}
+
+.content-container {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 66%;
+}
+
+.content-container-narrow {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+}
+
+.text-container {
+    width: 33%;
+    max-width: 350px;
+    background-color: #f0f0f0;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.text-container-wide {
+    width: 50%;
+    background-color: #f0f0f0;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.inner-text-container {
+    padding: 20px;
+    flex-grow: 1;
+    overflow-y: scroll;
+}
+
+.menu {
+    margin-top: auto;
+    display: flex;
+    justify-content: space-evenly;
+    padding: 20px;
+}
+
+.menu > a {
+    aspect-ratio: 1 / 1;
+    width: 32px;
+}
+
+.menu > a:link, .menu > a:visited {
+    background-color: #a3a3a3;
+    color: white;
+    padding: 8px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    margin: 8px;
+}
+
+.menu > a.menu-selected:link, .menu > a.menu-selected:visited {
+    background-color: #6e6e6e;
+}
+
+.menu > a:hover, .menu > a:active {
+    background-color: #838383;
+}
+
+.divider {
+    background-color: #bfbfbf;
+    height: 1px;
+}
+
+.toolbar {
+    display: inline-flex;
+    /*justify-content: space-between;*/
+    background: #bfbfbf;
+}
+
+.tool-button {
+    background: none;
+    border: none;
+    outline: none;
+    width: 48px;
+    height: 48px;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+    font-size: 24px;
+    color: #555;
+}
+
+.tool-button:hover {
+    background: #858585;
+    color: white;
+}
+
+.tool-button.active {
+    background: #6e6e6e;
+    color: white;
+}

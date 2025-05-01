@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Bezier curves editor</title>
+
+    <script src="math.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols" rel="stylesheet">
+</head>
+
+<body>
+
+<div class="container">
+    <div class="content-container">
+        <canvas id="canvas1" class="canvas" style="border:1px solid #d3d3d3;"></canvas>
+    </div>
+
+    <div class="text-container">
+        <div class="inner-text-container">
+            <h1>Bézier curves editor</h1>
+            <h3>Controls</h3>
+            <br>
+
+            <div class="toolbar">
+                <button class="tool-button active" data-tool="select">
+                    <span class="material-symbols">select</span>
+                </button>
+                <button class="tool-button" data-tool="rotate">
+                    <span class="material-symbols">rotate_left</span>
+                </button>
+                <button class="tool-button" data-tool="scale">
+                    <span class="material-symbols">open_in_full</span>
+                </button>
+                <button class="tool-button" data-tool="edit">
+                    <span class="material-icons">touch_app</span>
+                </button>
+                <button class="tool-button" data-tool="brush">
+                    <span class="material-icons">brush</span>
+                </button>
+            </div>
+
+            <br/><br/>
+            Color:
+            <input id="inputColor" type="color" value="#900000" oninput="canvas.onColorInput(colorInput.value)"/>
+
+            <br><br>
+            <div class="divider"></div>
+            <br>
+
+            Load control points: <input type="file" id="file-input"/>
+            <br><br>
+            Save control points: <button type="button" onclick="canvas.saveCurvesToFile()">Save</button>
+        </div>
+    </div>
+</div>
+<br>
+
+<script src="CanvasHelper.js"></script>
+<script src="BezierCurve.js"></script>
+<script src="CanvasDrawing.js"></script>
+<script src="CanvasTool.js"></script>
+<script type="text/javascript">
+
+    let defaultStyle = {
+        curve:	{ width: 1.5, color: "#474747", dash: 5 },
+        line:	{ width: 1, color: "#737373" },
+        point: { radius: 10, width: 2, color: "#4e4e4e", fill: "rgba(200,200,200,0.5)", arc1: 0, arc2: 2 * Math.PI }
+    }
+
+    let canvas1 = document.getElementById("canvas1");
+    let context1 = canvas1.getContext("2d");
+    let colorInput = document.getElementById("inputColor")
+    let fileInput = document.getElementById('file-input')
+
+    let canvas;
+
+    function init() {
+        canvas = new BezierCanvas(canvas1, context1);
+        canvas.tool = CanvasTool.from('select', canvas)
+        canvas.resizeCanvas()
+
+        window.addEventListener('resize', () => {
+            canvas.resizeCanvas()
+        });
+        fileInput.addEventListener('change', (ev) => {
+            readSingleFile(ev, canvas.loadCurvesFromFile)
+        }, false);
+    }
+    init();
+
+    const buttons = document.querySelectorAll('.tool-button');
+    buttons.forEach(button => {
+        button.addEventListener('click', () => {
+            buttons.forEach(btn => btn.classList.remove('active'));
+            button.classList.add('active');
+            const selectedTool = CanvasTool.from(button.getAttribute('data-tool'), canvas);
+            canvas.setTool(selectedTool)
+        });
+    });
+
+</script>
+</body>
+</html>
